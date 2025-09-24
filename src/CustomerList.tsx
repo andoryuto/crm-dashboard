@@ -5,11 +5,16 @@
  * - 顧客データのテーブル表示
  * - リアルタイム検索・フィルター（名前、会社名、メール対応）
  * - 新規顧客追加ダイアログの表示制御
+ * - 顧客の編集・削除機能
  * - レスポンシブデザイン対応
  */
 
 import React, { useState } from 'react';
 import {
+    Box,
+    Typography,
+    TextField,
+    Button,
     Table,
     TableBody,
     TableCell,
@@ -17,95 +22,149 @@ import {
     TableHead,
     TableRow,
     Paper,
-    Typography,
-    Box,
-    TextField,
-    Button
+    Container
 } from '@mui/material';
-import { Add as AddIcon, Search as SearchIcon } from '@mui/icons-material';
 import { Customer } from './mockData';
 import AddCustomerDialog from './AddCustomerDialog';
 
 interface CustomerListProps {
     customers: Customer[];
-    onAddCustomer: (newCustomerData: Omit<Customer, 'id'>) => void;
+    onAddCustomer: (customer: Omit<Customer, 'id' | 'createdAt'>) => void;
+    onUpdateCustomer: (customer: Customer) => void;
+    onDeleteCustomer: (id: number) => void;
 }
 
-const CustomerList: React.FC<CustomerListProps> = ({ customers, onAddCustomer }) => {
+const CustomerList: React.FC<CustomerListProps> = ({
+    customers,
+    onAddCustomer,
+    onUpdateCustomer,
+    onDeleteCustomer
+}) => {
     const [searchTerm, setSearchTerm] = useState('');
-    const [dialogOpen, setDialogOpen] = useState(false);
+    const [openDialog, setOpenDialog] = useState(false);
+    const [editingCustomer, setEditingCustomer] = useState<Customer | null>(null);
 
-    const filteredCustomers = customers.filter((customer) =>
+    // 検索フィルター
+    const filteredCustomers = customers.filter(customer =>
         customer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         customer.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
         customer.email.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    const handleAddCustomer = (newCustomerData: Omit<Customer, 'id'>) => {
-        onAddCustomer(newCustomerData);
+    // 顧客追加処理
+    const handleAddCustomer = (customerData: Omit<Customer, 'id' | 'createdAt'>) => {
+        onAddCustomer(customerData);
+        setOpenDialog(false);
+    };
+
+    // 編集処理
+    const handleEditCustomer = (customer: Customer) => {
+        setEditingCustomer(customer);
+        setOpenDialog(true);
+    };
+
+    // 更新処理
+    const handleUpdateCustomer = (customerData: Omit<Customer, 'id' | 'createdAt'>) => {
+        if (editingCustomer) {
+            const updatedCustomer: Customer = {
+                ...editingCustomer,
+                ...customerData
+            };
+            onUpdateCustomer(updatedCustomer);
+            setEditingCustomer(null);
+            setOpenDialog(false);
+        }
+    };
+
+    // 削除処理
+    const handleDeleteCustomer = (id: number) => {
+        if (window.confirm('この顧客を削除してもよろしいですか？')) {
+            onDeleteCustomer(id);
+        }
+    };
+
+    // ダイアログを閉じる処理
+    const handleCloseDialog = () => {
+        setOpenDialog(false);
+        setEditingCustomer(null);
     };
 
     return (
-        <Box sx={{ padding: 2 }}>
-            <Typography variant="h4" component="h1" gutterBottom>
-                顧客一覧
-            </Typography>
+        <Container maxWidth="lg" sx={{ mt: 2 }}>
+            <Box sx={{ mb: 3 }}>
+                <Typography variant="h4" gutterBottom>
+                    顧客一覧
+                </Typography>
 
-            {/* 検索バーと新規追加ボタン */}
-            <Box sx={{ display: 'flex', gap: 2, marginBottom: 2 }}>
-                <TextField
-                    label="顧客を検索"
-                    variant="outlined"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    InputProps={{
-                        startAdornment: <SearchIcon sx={{ marginRight: 1 }} />
-                    }}
-                    sx={{ flexGrow: 1 }}
-                />
-                <Button
-                    variant="contained"
-                    startIcon={<AddIcon />}
-                    sx={{ minWidth: '120px' }}
-                    onClick={() => setDialogOpen(true)}
-                >
-                    新規追加
-                </Button>
-            </Box>
+                <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+                    <TextField
+                        label="検索（名前、会社名、メールアドレス）"
+                        variant="outlined"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        sx={{ flexGrow: 1 }}
+                    />
+                    <Button
+                        variant="contained"
+                        onClick={() => setOpenDialog(true)}
+                    >
+                        新規顧客追加
+                    </Button>
+                </Box>
 
-            <TableContainer component={Paper}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>ID</TableCell>
-                            <TableCell>名前</TableCell>
-                            <TableCell>会社</TableCell>
-                            <TableCell>メール</TableCell>
-                            <TableCell>電話番号</TableCell>
-                            <TableCell>登録日</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {filteredCustomers.map((customer) => (
-                            <TableRow key={customer.id}>
-                                <TableCell>{customer.id}</TableCell>
-                                <TableCell>{customer.name}</TableCell>
-                                <TableCell>{customer.company}</TableCell>
-                                <TableCell>{customer.email}</TableCell>
-                                <TableCell>{customer.phone}</TableCell>
-                                <TableCell>{customer.createdAt}</TableCell>
+                <TableContainer component={Paper}>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>名前</TableCell>
+                                <TableCell>会社名</TableCell>
+                                <TableCell>メールアドレス</TableCell>
+                                <TableCell>電話番号</TableCell>
+                                <TableCell>登録日</TableCell>
+                                <TableCell>アクション</TableCell>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                        </TableHead>
+                        <TableBody>
+                            {filteredCustomers.map((customer) => (
+                                <TableRow key={customer.id}>
+                                    <TableCell>{customer.name}</TableCell>
+                                    <TableCell>{customer.company}</TableCell>
+                                    <TableCell>{customer.email}</TableCell>
+                                    <TableCell>{customer.phone}</TableCell>
+                                    <TableCell>{customer.createdAt}</TableCell>
+                                    <TableCell>
+                                        <Button
+                                            size="small"
+                                            variant="outlined"
+                                            onClick={() => handleEditCustomer(customer)}
+                                            sx={{ mr: 1 }}
+                                        >
+                                            編集
+                                        </Button>
+                                        <Button
+                                            size="small"
+                                            variant="outlined"
+                                            color="error"
+                                            onClick={() => handleDeleteCustomer(customer.id)}
+                                        >
+                                            削除
+                                        </Button>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
 
-            <AddCustomerDialog
-                open={dialogOpen}
-                onClose={() => setDialogOpen(false)}
-                onAdd={handleAddCustomer}
-            />
-        </Box>
+                <AddCustomerDialog
+                    open={openDialog}
+                    onClose={handleCloseDialog}
+                    onAdd={editingCustomer ? handleUpdateCustomer : handleAddCustomer}
+                    initialData={editingCustomer}
+                    isEdit={!!editingCustomer}
+                />
+            </Box>
+        </Container>
     );
 };
 

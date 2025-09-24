@@ -26,12 +26,29 @@ function App() {
   const [currentPage, setCurrentPage] = useState<'dashboard' | 'customers'>('dashboard');
   const [customers, setCustomers] = useState<Customer[]>(initialCustomers);
 
-  const handleAddCustomer = (newCustomerData: Omit<Customer, 'id'>) => {
+  const handleAddCustomer = (newCustomerData: Omit<Customer, 'id' | 'createdAt'>) => {
     const newCustomer: Customer = {
       ...newCustomerData,
-      id: Math.max(...customers.map(c => c.id)) + 1
+      id: Math.max(...customers.map(c => c.id)) + 1,
+      createdAt: new Date().toISOString().split('T')[0] // YYYY-MM-DD形式
     };
     setCustomers([...customers, newCustomer]);
+  };
+
+  // 顧客更新処理
+  const handleUpdateCustomer = (updatedCustomer: Customer) => {
+    setCustomers(prevCustomers =>
+      prevCustomers.map(customer =>
+        customer.id === updatedCustomer.id ? updatedCustomer : customer
+      )
+    );
+  };
+
+  // 顧客削除処理
+  const handleDeleteCustomer = (customerId: number) => {
+    setCustomers(prevCustomers =>
+      prevCustomers.filter(customer => customer.id !== customerId)
+    );
   };
 
   return (
@@ -62,12 +79,14 @@ function App() {
         </Toolbar>
       </AppBar>
 
-      <Container maxWidth="lg" style={{ marginTop: '2rem' }}>
+      <Container maxWidth="lg" sx={{ mt: 2 }}>
         {currentPage === 'dashboard' && <Dashboard customers={customers} />}
         {currentPage === 'customers' && (
           <CustomerList
             customers={customers}
             onAddCustomer={handleAddCustomer}
+            onUpdateCustomer={handleUpdateCustomer}
+            onDeleteCustomer={handleDeleteCustomer}
           />
         )}
       </Container>
