@@ -2,8 +2,14 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('CRMダッシュボードが表示される', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const dashboardTitle = screen.getByText('CRM Dashboard');
+  expect(dashboardTitle).toBeInTheDocument();
+});
+
+test('ダッシュボードボタンが表示される', () => {
+  render(<App />);
+  const dashboardButton = screen.getByRole('button', { name: /ダッシュボード/ });
+  expect(dashboardButton).toBeInTheDocument();
 });
