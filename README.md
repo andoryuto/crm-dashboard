@@ -1,46 +1,39 @@
-# Getting Started with Create React App
+# CRM Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+React + TypeScript で構築した顧客管理システムです。
 
-## Available Scripts
+## 技術スタック
 
-In the project directory, you can run:
+- **フロントエンド**: React 18.2.0, TypeScript
+- **UI フレームワーク**: Material-UI
+- **データ可視化**: Chart.js, react-chartjs-2
+- **テスト**: Jest, React Testing Library
+- **デプロイ**: Vercel
+- **バージョン管理**: Git, GitHub
 
-### `npm start`
+## 実装機能
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- 顧客一覧表示
+- リアルタイム検索（名前、会社名、メールアドレス）
+- 新規顧客追加
+- 統計ダッシュボード（総顧客数、新規顧客数、会社数）
+- データ可視化（棒グラフ、円グラフ）
+- レスポンシブデザイン対応
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## デモサイト
 
-### `npm test`
+[https://crm-dashboard-pied-beta.vercel.app/](https://crm-dashboard-pied-beta.vercel.app/)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## セットアップ方法
+```bash
+# リポジトリのクローン
+git clone https://github.com/andoryuto/crm-dashboard.git
 
-### `npm run build`
+# 依存関係のインストール
+npm install
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# 開発サーバーの起動
+npm start
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+# テスト実行
+npm test

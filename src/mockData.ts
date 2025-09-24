@@ -1,17 +1,24 @@
+/**
+ * モックデータ定義
+ * 
+ * 開発・テスト用の顧客データを提供
+ * 将来的にはREST APIまたはデータベースに置き換え予定
+ */
+
 export interface Customer {
-    id: number;
-    name: string;
-    company: string;
-    email: string;
-    phone: string;
-    createdAt: string;
+  id: number;
+  name: string;
+  company: string;
+  email: string;
+  phone: string;
+  createdAt: string;
 }
 
 export const mockCustomers: Customer[] = [
   {
     id: 1,
     name: "田中太郎",
-    company: "株式会社サンプル", 
+    company: "株式会社サンプル",
     email: "tanaka@sample.com",
     phone: "090-1234-5678",
     createdAt: "2024-01-15"
@@ -20,7 +27,7 @@ export const mockCustomers: Customer[] = [
     id: 2,
     name: "佐藤花子",
     company: "テスト株式会社",
-    email: "sato@test.com", 
+    email: "sato@test.com",
     phone: "080-9876-5432",
     createdAt: "2024-02-20"
   },
@@ -37,7 +44,7 @@ export const mockCustomers: Customer[] = [
     name: "鈴木美咲",
     company: "サンプル商事",
     email: "suzuki@sample-trade.com",
-    phone: "090-3333-4444", 
+    phone: "090-3333-4444",
     createdAt: "2024-03-25"
   },
   {

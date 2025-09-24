@@ -1,3 +1,12 @@
+/**
+ * CRMダッシュボード メインアプリケーション
+ * 
+ * 機能:
+ * - ナビゲーション管理（ダッシュボード/顧客一覧の切り替え）
+ * - 顧客データの状態管理
+ * - Material-UI AppBarによるヘッダー表示
+ */
+
 import React, { useState } from 'react';
 import {
   Container,

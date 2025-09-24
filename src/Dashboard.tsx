@@ -1,3 +1,12 @@
+/**
+ * ダッシュボードコンポーネント
+ * 
+ * 機能:
+ * - 顧客統計の計算・表示（総顧客数、新規顧客、会社数、平均値）
+ * - Chart.jsによるデータ可視化（棒グラフ、円グラフ）
+ * - Material-UIカードレイアウトによる統計表示
+ */
+
 import React from 'react';
 import {
   Box,
@@ -43,7 +52,7 @@ const Dashboard: React.FC<DashboardProps> = ({ customers }) => {
 
   // 今月の新規顧客（簡易版）
   const currentMonth = new Date().getMonth() + 1;
-  const thisMonthCustomers = customers.filter(customer => 
+  const thisMonthCustomers = customers.filter(customer =>
     new Date(customer.createdAt).getMonth() + 1 === currentMonth
   ).length;
 
@@ -83,11 +92,11 @@ const Dashboard: React.FC<DashboardProps> = ({ customers }) => {
         ダッシュボード
       </Typography>
 
-      <Box sx={{ 
-        display: 'flex', 
-        flexWrap: 'wrap', 
-        gap: 2, 
-        marginBottom: 3 
+      <Box sx={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: 2,
+        marginBottom: 3
       }}>
         <Card sx={{ minWidth: 200 }}>
           <CardContent>
@@ -99,7 +108,7 @@ const Dashboard: React.FC<DashboardProps> = ({ customers }) => {
             </Typography>
           </CardContent>
         </Card>
-        
+
         <Card sx={{ minWidth: 200 }}>
           <CardContent>
             <Typography color="textSecondary" gutterBottom>
@@ -141,7 +150,7 @@ const Dashboard: React.FC<DashboardProps> = ({ customers }) => {
           </Typography>
           <Bar data={barData} />
         </Paper>
-        
+
         <Paper sx={{ padding: 2, flex: '1 1 300px' }}>
           <Typography variant="h6" gutterBottom>
             顧客分布

@@ -1,3 +1,12 @@
+/**
+ * 新規顧客追加ダイアログコンポーネント
+ * 
+ * 機能:
+ * - Material-UI Dialogによるモーダル表示
+ * - フォームバリデーション
+ * - 新規顧客データの作成・追加
+ */
+
 import React, { useState } from 'react';
 import {
   Dialog,
