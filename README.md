@@ -1,6 +1,3 @@
-## 完璧なREADME.mdコード
-
-```markdown
 # CRM Dashboard with Safety Check System
 
 React + TypeScript で構築した統合企業管理システムです。顧客管理機能に加え、安否確認システムを統合した実用的なWebアプリケーションです。
@@ -43,15 +40,12 @@ React + TypeScript で構築した統合企業管理システムです。顧客�
 - **履歴管理**: 送信履歴の詳細追跡
 
 ## プロジェクト構成
-
-```
 crm-dashboard/
 ├── src/                     # React TypeScript アプリケーション
 ├── python-analysis/         # Python データ分析
 │   ├── crm_analysis.ipynb  # Jupyter Notebook分析ファイル
 │   └── data/               # 分析用データ
 └── package.json
-```
 
 ## システム特徴
 
@@ -72,7 +66,6 @@ crm-dashboard/
 - **安否確認**: ダッシュボード・送信機能
 
 ## セットアップ方法
-
 ```bash
 # リポジトリのクローン
 git clone https://github.com/andoryuto/crm-dashboard.git
