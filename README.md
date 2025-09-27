@@ -1,3 +1,6 @@
+## 完璧なREADME.mdコード
+
+```markdown
 # CRM Dashboard with Safety Check System
 
 React + TypeScript で構築した統合企業管理システムです。顧客管理機能に加え、安否確認システムを統合した実用的なWebアプリケーションです。
@@ -7,6 +10,7 @@ React + TypeScript で構築した統合企業管理システムです。顧客�
 - **フロントエンド**: React 18.2.0, TypeScript
 - **UI フレームワーク**: Material-UI
 - **データ可視化**: Chart.js, react-chartjs-2
+- **データ分析**: Python, Pandas, Jupyter Notebook, Plotly
 - **テスト**: Jest, React Testing Library
 - **デプロイ**: Vercel
 - **バージョン管理**: Git, GitHub
@@ -19,6 +23,13 @@ React + TypeScript で構築した統合企業管理システムです。顧客�
 - 統計ダッシュボード（総顧客数、新規顧客数、会社数）
 - データ可視化（棒グラフ、円グラフ）
 
+### データ分析機能
+- **CRMデータ分析**: 顧客データの統計分析・可視化
+- **インタラクティブグラフ**: Plotlyによる動的データ表示
+- **月別推移分析**: 顧客登録数の時系列分析
+- **業界×地域クロス分析**: ヒートマップによる分布可視化
+- **CSV出力**: 分析結果のデータエクスポート機能
+
 ### 従業員管理システム
 - 従業員情報の包括的管理（CRUD操作）
 - 部署別フィルタリング・検索機能
@@ -30,6 +41,17 @@ React + TypeScript で構築した統合企業管理システムです。顧客�
 - **送信機能**: テンプレートベースの一斉送信
 - **対象選択**: 全社・部署別・個人別の柔軟な配信
 - **履歴管理**: 送信履歴の詳細追跡
+
+## プロジェクト構成
+
+```
+crm-dashboard/
+├── src/                     # React TypeScript アプリケーション
+├── python-analysis/         # Python データ分析
+│   ├── crm_analysis.ipynb  # Jupyter Notebook分析ファイル
+│   └── data/               # 分析用データ
+└── package.json
+```
 
 ## システム特徴
 
@@ -50,6 +72,7 @@ React + TypeScript で構築した統合企業管理システムです。顧客�
 - **安否確認**: ダッシュボード・送信機能
 
 ## セットアップ方法
+
 ```bash
 # リポジトリのクローン
 git clone https://github.com/andoryuto/crm-dashboard.git
